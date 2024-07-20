@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        int m=matrix[0].size();
+        int top=0,down=n-1,left=0,right=m-1;
+        vector<int>v;
+
+        while(top<=down && left<=right)
+        {
+            for(int i=left;i<=right;i++)
+            {
+                cout << "Running left to right" << endl;
+                v.push_back(matrix[top][i]);
+            }
+            top++;
+            for(int i=top;i<=down;i++)
+            {
+                cout << "Running top to down" << endl;
+                v.push_back(matrix[i][right]);
+            }
+            right--;
+
+            if(top<=down)
+            {
+                for(int i=right;i>=left;i--)
+                {
+                    cout << "Running right to left" << endl;
+                    v.push_back(matrix[down][i]);
+                }
+                down--;
+            }
+            
+            if(left<=right)
+            {
+                for(int i=down;i>=top;i--)
+                {
+                    cout << "Running down to top" << endl;
+                    v.push_back(matrix[i][left]);
+                }
+                left++;
+            }
+            
+        }
+        return v;
+    }
+};

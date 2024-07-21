@@ -1,0 +1,61 @@
+class Solution 
+{
+    public:
+    
+    vector<pair<int, int>> moves = {
+        {2, 1}, {2, -1}, {-2, 1}, {-2, -1},
+        {1, 2}, {1, -2}, {-1, 2}, {-1, -2}
+    };
+    
+    //Function to find out minimum steps Knight needs to reach target position.
+	int minStepToReachTarget(vector<int>&KnightPos,vector<int>&TargetPos,int n)
+	{
+	    // Code here
+	    int startX = KnightPos[0] - 1;
+        int startY = KnightPos[1] - 1;
+        int endX = TargetPos[0] - 1;
+        int endY = TargetPos[1] - 1;
+
+        
+        queue<pair<int, int>> q;
+        q.push({startX, startY});
+        
+
+        vector<vector<bool>> visited(n,vector<bool>(n, false));
+        visited[startX][startY] = true;
+        
+      
+        int steps = 0;
+        
+    
+        while (!q.empty()) {
+            int size = q.size();
+            for (int i = 0; i < size; ++i) {
+                int x = q.front().first;
+                int y = q.front().second;
+                q.pop();
+                
+                
+                if (x == endX && y == endY) {
+                    return steps;
+                }
+                
+                
+                for (auto p : moves) {
+                    int newX = x + p.first;
+                    int newY = y + p.second;
+                    
+                    
+                    if (newX >= 0 && newX < n && newY >= 0 && newY < n && visited[newX][newY]==false) {
+                        visited[newX][newY] = true;
+                        q.push({newX, newY});
+                    }
+                }
+            }
+            ++steps;
+        }
+        
+        
+        return -1;
+	}
+};

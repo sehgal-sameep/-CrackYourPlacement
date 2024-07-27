@@ -1,0 +1,63 @@
+class Solution {
+public:
+    int removeStones(vector<vector<int>>& stones) {
+        int n=stones.size();
+        vector<int>parent(n,-1);
+        vector<int>rank(n,0);
+        for(int i=0;i<n;i++)
+            parent[i]=i;
+        
+        for(int i=0;i<n;i++)
+        {
+            int r=stones[i][0];
+            int c=stones[i][1];
+            for(int j=i+1;j<n;j++)
+            {
+                if(stones[j][0]==r || stones[j][1]==c)
+                {
+                    Union(i,j,parent,rank);
+                }
+            }
+        }
+
+        int ans=0;
+        for(int i=0;i<n;i++)
+        {
+            cout << i << ":" << parent[i]<< endl;
+            if(parent[i]==i)
+                ans++;
+        }
+        return n-ans;
+    }
+
+    int findParent(int u, vector<int>&parent)
+    {
+        if(parent[u]==u)
+            return u;
+        return parent[u]=findParent(parent[u],parent);
+    }
+
+    void Union(int u, int v, vector<int>&parent, vector<int>&rank)
+    {
+        int u_parent=findParent(u,parent);
+        int v_parent=findParent(v,parent);
+
+        if(u_parent==v_parent)
+            return;
+        
+        if(rank[u_parent]>rank[v_parent])
+        {
+            parent[v_parent]=u_parent;
+        }
+        else if(rank[u_parent]<rank[v_parent])
+        {
+            parent[u_parent]=v_parent;
+        }
+        else
+        {
+            parent[v_parent]=u_parent;
+            rank[u_parent]++;
+        }
+        
+    }
+};

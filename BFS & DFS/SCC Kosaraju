@@ -1,3 +1,7 @@
+// store topo order in stack
+// reverse graph
+// call dfs in topo order on reversed graph... increment count at every dfs call
+
 class Solution
 {
 	public:

@@ -1,0 +1,18 @@
+class Solution{
+  public:
+  
+    bool helper(Node* root, int min, int max)
+    {
+        if(root==NULL)
+            return false;
+        if(min==max)
+            return true;
+        return helper(root->left,min,root->data-1) || helper(root->right,root->data+1,max);
+    }
+  
+    bool isDeadEnd(Node *root)
+    {
+        //Your code here
+        return helper(root,1,INT_MAX);
+    }
+};

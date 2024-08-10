@@ -1,0 +1,29 @@
+void findPreSuc(TreeNode* root, TreeNode*& pre, TreeNode*& suc, int key) {
+    pre = nullptr;
+    suc = nullptr;
+    
+    while (root) {
+        if (root->val < key) {
+            pre = root;
+            root = root->right;
+        } else if (root->val > key) {
+            suc = root;
+            root = root->left;
+        } else {
+            // If root->val == key
+            if (root->left) {
+                TreeNode* temp = root->left;
+                while (temp->right)
+                    temp = temp->right;
+                pre = temp;
+            }
+            if (root->right) {
+                TreeNode* temp = root->right;
+                while (temp->left)
+                    temp = temp->left;
+                suc = temp;
+            }
+            break;
+        }
+    }
+}
